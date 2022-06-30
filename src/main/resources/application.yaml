@@ -1,0 +1,16 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:movieDB
+    driverClassName: org.h2.Driver
+    username: backbase
+    password: backbase
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate:
+    show-sql: false
+    generate-ddl: false
+
+omdb:
+  baseUrl: http://www.omdbapi.com/
+  apiKey: 9355ed78
