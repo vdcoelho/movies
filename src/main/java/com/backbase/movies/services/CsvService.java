@@ -9,7 +9,6 @@ import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.core.io.ResourceLoader;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ResourceUtils;
@@ -27,13 +26,14 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Slf4j
 public class CsvService {
+
     private final NomineeRepository nomineeRepository;
     private static final String ACADEMY_AWARDS_CSV = "academy_awards.csv";
 
     @PostConstruct
-    public void loadDB() {
+    public Integer loadDB() {
         try {
-            loadNominees();
+            return loadNominees();
         } catch (IOException e) {
             throw new RuntimeException(e);
         } catch (CsvException e) {
@@ -44,17 +44,19 @@ public class CsvService {
     }
 
     @Transactional
-    private void loadNominees() throws IOException, CsvException, URISyntaxException {
+    private Integer loadNominees() throws IOException, CsvException, URISyntaxException {
         List<String[]> lines = getLines();
         List<Nominee> nominees = lines.stream()
                 .map(CsvService::map)
                 .collect(Collectors.toList());
 
+        log.info("saving {} nominees", nominees.size());
         nomineeRepository.saveAll(nominees);
+        return nominees.size();
     }
 
     private List<String[]> getLines() throws IOException, CsvException {
-        log.info("Loading the CVS file: ");
+        log.info("Loading the CVS file");
 
         var resource = ResourceUtils.getURL("classpath:" + ACADEMY_AWARDS_CSV);
         BufferedReader bufferedReader = new BufferedReader(

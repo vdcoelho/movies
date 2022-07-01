@@ -8,8 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.math.BigDecimal;
-
 @Service
 @AllArgsConstructor
 @Slf4j
@@ -35,15 +33,6 @@ public class OmdbService {
         return omdbResponseDto;
     }
 
-    public BigDecimal toBigDecimal(String value) {
-        if (value == null) return null;
-        if ("N/A".equals(value)) return null;
 
-        try {
-            return new BigDecimal(value.replaceAll("(?<=\\d),(?=\\d)|\\$", ""));
-        } catch (Exception e) {
-            return null;
-        }
-    }
 
 }
