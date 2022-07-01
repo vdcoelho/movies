@@ -35,12 +35,13 @@ public class CsvService {
         try {
             return loadNominees();
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            log.error("IOException to load the database with CSV file: {}", e.getMessage());
         } catch (CsvException e) {
-            throw new RuntimeException(e);
+            log.error("CsvException to load the database with CSV file: {}", e.getMessage());
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+            log.error("URISyntaxException to load the database with CSV file: {}", e.getMessage());
         }
+        return 0;
     }
 
     @Transactional
