@@ -14,3 +14,7 @@ spring:
 omdb:
   baseUrl: http://www.omdbapi.com/
   apiKey: 9355ed78
+
+server:
+  error:
+    include-message: always
