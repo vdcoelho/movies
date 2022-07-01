@@ -1,14 +1,14 @@
 ## How to test
 
-There's two main ways to test: 
+There are two main ways to test: 
 ## - Calling the endpoints using a client like Postman:
 
 > ###### IMPORTANT
-> All the endpoints are protected by Spring Security and you must to use the Basic Authentication to consume them.
-> Was configured in memory user authentication, then use the username `backbase` and password `backbase` or add the header`'Authorization': 'Basic YmFja2Jhc2U6YmFja2Jhc2U='`. Otherwise you will get the **HttpStatus 401 (Unauthorized)**.  
+> All the endpoints are protected by Spring Security and you must use the Basic Authentication to consume them.
+> The API was configured in memory user authentication, so use the username `backbase` and password `backbase` or add the header`'Authorization': 'Basic YmFja2Jhc2U6YmFja2Jhc2U='`. Otherwise you will get the **HttpStatus 401 (Unauthorized)**.  
 
-### 1- Find movie by title:
-This endpoint search a movie given a **movie's title** as parameter, and when it's found the response will have the movie's details.
+### 1- Finding movie by title:
+This endpoint searches a movie given a **movie's title** as parameter, and when it's found the response will have the movie's details.
 > Method: GET  
 > Url: `http://localhost:8080/api/v1/movies/by-title?title={title}`  
 > Response Status: 200 (OK), 404 (Movie not found), 401 (Unauthorized)  
@@ -60,8 +60,8 @@ This endpoint search a movie given a **movie's title** as parameter, and when it
 >```
 
 
-### 2- Indicate whether a movie won Oscar
-This endpoint search for a movie's information for Oscar's nominees and awarded, given a **movie's title** as parameter. **Optionally** can be provided the category parameter, otherwise will return the default category "Best Picture".  
+### 2- Indicating whether a movie won Oscar
+This endpoint searches for a movie's information of Oscar's nominations and awards, given a **movie's title** as parameter. **Optionally** the category parameter can be provided, otherwise the default category will be "Best Picture".    
 > Method: GET  
 > Url: `http://localhost:8080/api/v1/nominees/by-movie?title={title}&category={category}`  
 > Response Status: 200 (OK), 404 (Movie not found), 401 (Unauthorized)  
@@ -80,8 +80,8 @@ This endpoint search for a movie's information for Oscar's nominees and awarded,
 >```
 
 
-### 3- Allow users to give a rating to movies
-This endpoint allows to a user give a rating to a movie. Must provide in the payload the movie's title and the rate between 1 and 5.
+### 3- Allowing users to give a rating to movies
+This endpoint allows users to give a rating to a movie. The client must provide in the payload the movie's title and the rate between 1 and 5.
 > Method: POST  
 > Url: `http://localhost:8080/api/v1/ratings`  
 > Payload: ```{"rate": {rate}, "title": "{title}"} ```  
@@ -91,7 +91,7 @@ This endpoint allows to a user give a rating to a movie. Must provide in the pay
 > e.g. **Invalid Payload**: ```{"rate": 12,"title": "titanic"} ```  
 
 ### 4- Top 10 rated movies
-This endpoint provides a list of 10 top-rated movies ordered by box office value. If the box office is unknown then will be put after the movies that contains the value, ordered by box office.
+This endpoint provides a list of the 10 top-rated movies ordered by box office value. If the movie's box office is unknown, then this movie will be put after the movies that contain the value, ordered by rating.
 > Method: GET  
 > Url: `http://localhost:8080/api/v1/ratings/top10-rated`  
 > Response Status: 200 (OK), 401 (Unauthorized)  
@@ -131,11 +131,11 @@ This endpoint provides a list of 10 top-rated movies ordered by box office value
 >```
 
 ## - Frontend embedded
-Just to collaborate on understanding all features, I built a frontend application using part of Backbase Tech stack: Angular, HTML, CSS, TypeScript.
+Just to collaborate on understanding all features, I have built a frontend application using part of Backbase Tech stack: Angular, HTML, CSS, TypeScript.
 The source code is in the /movie-front.zip file, [right here](movie-front.zip)  
 Some things, like authentication, were replaced by hard coded to lower the time of codification. It's just an example of use, it's not production ready.   
 
-The web application is published in the follow path and port:   
+The web application is published in the following path and port:   
 `http://localhost:8080/`  
 
 ![Front End capture](capture_screen_frontend.png)
