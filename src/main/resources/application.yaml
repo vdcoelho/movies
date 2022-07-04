@@ -18,3 +18,10 @@ omdb:
 server:
   error:
     include-message: always
+
+resilience4j.circuitbreaker:
+  instances:
+    omdbApiCB:
+      minimumNumberOfCalls: 5
+      slidingWindowSize: 10
+      waitDurationInOpenState: 30s
